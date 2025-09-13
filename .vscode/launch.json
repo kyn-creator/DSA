@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run current folder",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${fileDirname}/app.exe",
+      "args": [],
+      "cwd": "${fileDirname}",
+      "console": "externalTerminal",
+      "preLaunchTask": "build current folder"
+    }
+  ]
+}
