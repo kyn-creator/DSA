@@ -1,6 +1,16 @@
-Data Structures and Algorithms (DSA)
+# Data Structures and Algorithms (DSA)
 
-🚀 About This Repo
-Welcome to the DSA Grinding Station. This repository contains solutions, implementations, and spaghetti code for Data Structures and Algorithms.
+## 🚀 About This Repository
+Welcome to the **DSA**.  
+This repository contains my implementations, solutions, practice exercises, and sometimes questionable spaghetti code related to Data Structures and Algorithms.
 
-Main Objective: i clutch sa 3.9 nga grado. 
+## 🎯 Main Objective
+**I-clutch ang 3.9 nga grado.**
+
+## 📂 Contents
+- Implementations of common data structures  
+- Experimental code while learning concepts  
+- Notes and references for quick review
+
+
+
