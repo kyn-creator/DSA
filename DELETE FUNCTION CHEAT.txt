@@ -1,0 +1,10 @@
+DELETE FUNCTION CHEAT
+
+1. CREATE 2 trav(double pointer) and 1 temp (1 pointer)
+2. traverse using trav1 with the ff conditions on the for loop (!= NULL and data != DataTerminate)
+3. forloop inside(check if DataTerminate < trav1 data) if less than move left, if greater than move right
+4. if NULL say gg, if not do case 1 - 3
+	case1: if no left child, put temp on traversed data, trav would point to temp->right and then free temp (like deleting in LL)
+	case2: similar but right child
+	case3:	(successor method/smallest in the right subtree), trav2 = trav->right and then check if trav->left != NULL if not then move;
+	outside the loop temp = trav2 and then trav->data = temp->data;, *trav2 = temp->right; free temp;

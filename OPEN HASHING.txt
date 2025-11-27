@@ -1,0 +1,141 @@
+//OPEN HASHING
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+#define MAX 10
+
+// Node structure
+typedef struct node {
+    int data;
+    struct node *link;
+} *SET;
+
+// Dictionary is an array of linked lists
+typedef SET Dictionary[MAX];
+
+// ----------------------
+// Hash function
+// ----------------------
+int hashbrown(int elem) {
+    int sum = 0;
+    while (elem != 0) {
+        sum += (elem % 10);
+        elem /= 10;
+    }
+    return sum % MAX;
+}
+
+// ----------------------
+// Initialize all buckets
+// ----------------------
+void init(Dictionary d) {
+    for (int i = 0; i < MAX; i++) {
+        d[i] = NULL;
+    }
+}
+
+// ----------------------
+// Check if element exists
+// ----------------------
+bool isMember(Dictionary d, int elem) {
+    int key = hashbrown(elem);
+    SET temp;
+    for (temp = d[key]; temp != NULL && temp->data != elem; temp = temp->link) {}
+    return (temp != NULL);
+}
+
+// ----------------------
+// Insert unique element
+// ----------------------
+void insertUnique(Dictionary d, int num) {
+    int key = hashbrown(num);
+    SET *trav, temp;
+
+    for (trav = &d[key]; *trav != NULL && (*trav)->data < num; trav = &(*trav)->link) {}
+
+    if (*trav != NULL && (*trav)->data == num) {
+        printf("%d already exists!\n", num);
+    } else {
+        temp = malloc(sizeof(struct node));
+        if (temp != NULL) {
+            temp->data = num;
+            temp->link = *trav;
+            *trav = temp;
+            printf("%d inserted in bucket %d\n", num, key);
+        }
+    }
+}
+
+// ----------------------
+// Delete element
+// ----------------------
+void delM(Dictionary d, int num) {
+    int key = hashbrown(num);  
+    SET *trav, temp;
+
+    
+    for (trav = &d[key]; *trav != NULL && (*trav)->data != num; trav = &(*trav)->link) {}
+
+    
+    if (*trav != NULL) {
+        temp = *trav;
+        *trav = temp->link;  
+        free(temp);  
+        printf("%d deleted from bucket %d\n", num, key);
+    } else {
+        // Item not found
+        printf("%d not found!\n", num);
+    }
+}
+
+
+// ----------------------
+// Display Dictionary
+// ----------------------
+void display(Dictionary d) {
+    printf("\nINDEX\tELEMENTS\n");
+    for (int i = 0; i < MAX; i++) {
+        printf("[%d]\t", i);
+        if (d[i] == NULL) {
+            printf("Empty");
+        } else {
+            SET ptr;
+            for (ptr = d[i]; ptr != NULL; ptr = ptr->link) {
+                printf("%d", ptr->data);
+                if (ptr->link != NULL) printf(" -> ");
+            }
+        }
+        printf("\n");
+    }
+}
+
+// ----------------------
+// MAIN DRIVER
+// ----------------------
+int main() {
+    Dictionary D;
+    init(D);
+
+    insertUnique(D, 15);
+    insertUnique(D, 25);
+    insertUnique(D, 35);
+    insertUnique(D, 42);
+    insertUnique(D, 19);
+    insertUnique(D, 22);
+    insertUnique(D, 32);
+
+    display(D);
+
+    printf("\nFind 25: %s\n", isMember(D, 25) ? "Found" : "Not Found");
+    printf("Find 99: %s\n", isMember(D, 99) ? "Found" : "Not Found");
+
+    delM(D, 25);
+    delM(D, 99);
+
+    printf("\n--- After Deletion ---\n");
+    display(D);
+
+    return 0;
+}
